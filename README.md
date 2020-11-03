@@ -1,2 +1,2 @@
-# the-theory-and-technique-of-electronic-music-solutions
-Exercise solutions to "The Theory and Technique of Electronic Music," by Miller Puckette
+# markov-chains
+A web page describing markov chains, finding the steady-state vector (or equilibrium vector), and chain simulation

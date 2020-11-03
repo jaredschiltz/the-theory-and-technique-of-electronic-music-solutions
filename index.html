@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head>
+  <link rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto">
+  <script>window.MathJax = { MathML: { extensions: ["mml3.js", "content-mathml.js"]}};</script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=MML_HTMLorMML"></script>
+  <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
+  -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <h1>Markov Chains</h1>
+    <p>A vector with <strong>nonnegative</strong> entries that add up to one is called a <strong>probability vector.</strong>
+    A <strong>stochastic matrix</strong> is a square matrix whose columns are probability vectors. A <strong>Markov chain</strong> 
+  is a sequence of probability vectors together with a stochastic matrix <i>P</i> such that: </p>
+  <p>
+    <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><msub><mi>v</mi><mn>0</mn></msub><mo>&#x21C0;</mo></mover><mo>=</mo><mover><msub><mi>v</mi><mn>1</mn></msub><mo>&#x21C0;</mo></mover></math>
+    ,
+    <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><msub><mi>v</mi><mn>1</mn></msub><mo>&#x21C0;</mo></mover><mo>=</mo><mover><msub><mi>v</mi><mn>2</mn></msub><mo>&#x21C0;</mo></mover></math>
+    ,
+    <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><msub><mi>v</mi><mn>2</mn></msub><mo>&#x21C0;</mo></mover><mo>=</mo><mover><msub><mi>v</mi><mn>3</mn></msub><mo>&#x21C0;</mo></mover></math>
+    , ...
+
+  </p>
+  <p>
+    Thus, the Markov chain is described by the first-order difference equation:
+  </p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><msub><mi>v</mi><mi>k</mi></msub><mo>&#x21C0;</mo></mover><mo>=</mo><msub><mover><mi>v</mi><mo>&#x21C0;</mo></mover><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub></math>
+  <p>
+   
+  </p> 
+  When a Markov chain of vectors in <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi mathvariant="normal">&#x211D;</mi><mi>n</mi></msup></math> describes a system or a sequence of experiments, the entries in <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mover><mi>v</mi><mo>&#x21C0;</mo></mover><mi>k</mi></msub></math> 
+  list the probabilities that the system is in each of <i>n</i> possible states, or the probabilities that the outcome of the experiment is one of the <i>n</i> possible outcomes. For this
+  reason, <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mover><mi>v</mi><mo>&#x21C0;</mo></mover><mi>k</mi></msub></math> is often called the <strong>state vector</strong>.
+</p>
+<h2>Example Application</h2>
+<p>
+  Suppose the annual migration of people between two parts of a metropolitan region (i.e., city and suburbs) is governed by a migration matrix <i>M</i>:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mover><mover><mrow><mi>T</mi><mi>o</mi><mo>:</mo><mo>&#xA0;</mo><mfenced open="{" close=""><mtable columnalign="left"><mtr><mtd><mi>C</mi><mi>i</mi><mi>t</mi><mi>y</mi></mtd></mtr><mtr><mtd><mi>S</mi><mi>u</mi><mi>b</mi><mi>u</mi><mi>r</mi><mi>b</mi><mi>s</mi></mtd></mtr></mtable></mfenced><mover><mover><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>95</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>97</mn></mtd></mtr></mtable></mfenced><mtable><mtr><mtd><mi>C</mi><mi>i</mi><mi>t</mi><mi>y</mi></mtd><mtd><mi>S</mi><mi>u</mi><mi>b</mi><mi>u</mi><mi>r</mi><mi>b</mi><mi>s</mi></mtd></mtr></mtable></mover><mrow><mi>F</mi><mi>r</mi><mi>o</mi><mi>m</mi><mo>:</mo></mrow></mover></mrow><mrow/></mover><mo>&#xA0;</mo></mover><mtable><mtr/><mtr/><mtr/><mtr/></mtable><mspace linebreak="newline"/></math>
+</p>
+<p>
+  That is, each year 5% of the city population moves to the suburbs, and 3% of the suburban population moves to the city.
+  The columns of M are probability vectors, so <i>M</i> is a stochastic matrix. Suppose that the 2020 population of the 
+  region is 600,000 people in the city and 400,000 people in the suburbs; i.e., 60% of people live in the city and 40% of people live in the suburbs.
+  These initial population percentages make up the initial state vector. The updated population percentages, after one year, can be represented by the the equation:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>95</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>97</mn></mtd></mtr></mtable></mfenced><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>6</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>4</mn></mtd></mtr></mtable></mfenced><mo>=</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>582</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>418</mn></mtd></mtr></mtable></mfenced><mspace linebreak="newline"/></math>
+</p>
+<p>
+  The resultant vector gives the population distribution in 2021 as 58.2% of the population is in the city and 41.8% of the population is in the suburbs.
+</p>
+<p>
+  To find the population percentages in year 2022, we apply the new state vector to matrix <i>M</i>:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>95</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>97</mn></mtd></mtr></mtable></mfenced><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>582</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>418</mn></mtd></mtr></mtable></mfenced><mo>=</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>565</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>435</mn></mtd></mtr></mtable></mfenced><mspace linebreak="newline"/></math>
+</p>
+<p>
+  The next question that naturally comes up is: "Do the populations stabilize after a certain number of iterations?"
+</p>
+<p>
+  The answer depends on a couple of conditions.
+</p>
+<p>
+First of all, if <i>P</i> is a stochastic matrix, then a <strong>steady-state vector</strong> (or <strong>equilibrium vector</strong>) for <i>P</i>
+is a probability vector <strong>q</strong> such that:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/></math>
+</p>
+<p>
+  There is a theorem, which won't be proven here, that if <i>P</i> is an <i>n</i> x <i>n</i> regular stochastic matrix, 
+  the <i>P</i> has a unique steady-state vector <strong>q</strong>. Furthermore, state vector <strong>v</strong> will always
+  converge to steady-state vector <strong>q</strong>, regardless of the initial state. The amazing part of the theorem is that the 
+  the initial state has no effect on the long-term behavior of the Markov chain! In order for this to happen, however, matrix 
+  <i>M</i> must be a square stochastic matrix (the probabilities of all columns must add to 1) and the matrix must be regular (all elements
+  of a least one particular power are positive and non-zero).
+</p>
+<p>
+  To find the steady-state vector <strong>q</strong>, we need to solve the equation:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>P</mi><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/><mi>P</mi><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>-</mo><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mo>&#xA0;</mo><mover><mn>0</mn><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/><mi>P</mi><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>-</mo><mover><mrow><mi>I</mi><mi>q</mi></mrow><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mo>&#xA0;</mo><mover><mn>0</mn><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/><mo>(</mo><mi>P</mi><mo>-</mo><mi>I</mi><mo>)</mo><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mo>&#xA0;</mo><mover><mn>0</mn><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+<p>
+  To find the steady-state vector of the population percentages in the example above we solve this equation:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced><mrow><mfenced open="|" close="|"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>95</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>97</mn></mtd></mtr></mtable></mfenced><mo>-</mo><mfenced open="|" close="|"><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>1</mn></mtd></mtr></mtable></mfenced></mrow></mfenced><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mo>&#xA0;</mo><mover><mn>0</mn><mo>&#x21C0;</mo></mover><mspace linebreak="newline"/><mfenced open="|" close="|"><mtable><mtr><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr></mtable></mfenced><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>=</mo><mover><mn>0</mn><mo>&#x2192;</mo></mover><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+<p>
+  Row reduce the following matrix:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="|" close="|"><mtable><mtr><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>03</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable></mfenced><mo>~</mo><mfenced open="|" close="|"><mtable><mtr><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable></mfenced><mo>~</mo><mfenced open="|" close="|"><mtable><mtr><mtd><mn>1</mn></mtd><mtd><mo>-</mo><mn>0</mn><mo>.</mo><mn>6</mn></mtd><mtd><mn>0</mn></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd><mtd><mn>0</mn></mtd></mtr></mtable></mfenced><mtable><mtr/><mtr/></mtable><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+<p>
+  <Strong>q</Strong><sub>2</sub> is free and <strong>q</strong><sub>1</sub> is 0.6 * <strong>q</strong><sub>2</sub>
+</p>
+<p>
+  We choose a simple basis for the solution space. The most obvious choice is:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>6</mn></mtd></mtr><mtr><mtd><mn>1</mn></mtd></mtr></mtable></mfenced><mo>&#xA0;</mo><mi>o</mi><mi>r</mi><mo>&#xA0;</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>3</mn></mtd></mtr><mtr><mtd><mn>5</mn></mtd></mtr></mtable></mfenced><mo>,</mo><mo>&#xA0;</mo><mi>w</mi><mi>h</mi><mi>e</mi><mi>n</mi><mo>&#xA0;</mo><mover><msub><mi>q</mi><mn>2</mn></msub><mo>&#x21C0;</mo></mover><mo>=</mo><mn>5</mn><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+<p>
+  By choosing <strong>q</strong><sub>2</sub> to be 5, we eliminate fractions. Since every solution is a multiple of <strong>q</strong>, 
+  we divide <strong>q</strong> by the sum of the entries to obtain the steady-state vector:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mo>&#xA0;</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mfrac><mn>3</mn><mn>8</mn></mfrac></mtd></mtr><mtr><mtd><mfrac><mn>5</mn><mn>8</mn></mfrac></mtd></mtr></mtable></mfenced><mo>=</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>375</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>625</mn></mtd></mtr></mtable></mfenced><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+<p>
+  As a check, we plug our steady-state <strong>q</strong> vector back in:
+</p>
+<p>
+  <math xmlns="http://www.w3.org/1998/Math/MathML"><mfenced open="|" close="|"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>95</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>03</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>05</mn></mtd><mtd><mn>0</mn><mo>.</mo><mn>97</mn></mtd></mtr></mtable></mfenced><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>375</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>625</mn></mtd></mtr></mtable></mfenced><mo>=</mo><mfenced open="[" close="]"><mtable><mtr><mtd><mn>0</mn><mo>.</mo><mn>375</mn></mtd></mtr><mtr><mtd><mn>0</mn><mo>.</mo><mn>625</mn></mtd></mtr></mtable></mfenced><mspace linebreak="newline"/><mi>P</mi><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mo>=</mo><mover><mi>q</mi><mo>&#x21C0;</mo></mover><mo>&#xA0;</mo><mi>i</mi><mi>s</mi><mo>&#xA0;</mo><mi>s</mi><mi>a</mi><mi>t</mi><mi>i</mi><mi>s</mi><mi>f</mi><mi>i</mi><mi>e</mi><mi>d</mi><mspace linebreak="newline"/><mspace linebreak="newline"/><mspace linebreak="newline"/></math>
+</p>
+    <!-- <script src="generator.js"></script> 
+    <script src="sketch.js"></script> -->
+  
+
+</body></html>
