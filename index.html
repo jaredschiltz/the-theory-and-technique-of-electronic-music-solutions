@@ -3,10 +3,6 @@
   href="https://fonts.googleapis.com/css?family=Roboto">
   <script>window.MathJax = { MathML: { extensions: ["mml3.js", "content-mathml.js"]}};</script>
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=MML_HTMLorMML"></script>
-  <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/addons/p5.sound.min.js"></script>
-  -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <meta charset="utf-8">
   </head>
@@ -148,18 +144,28 @@
         100. You wish to hear the untransposed spectrum at a period of 200 samples. By what duty factor should 
         you squeeze the waveform?
       </h3>
+      <p> The waveform should be squeezed by a duty factor of 50%</p>
       <h3>
         6) The first half of a wavetable contains a cycle of a sinusoid of peak amplitude one. The second 
         half contains zeros. What is the strength of the second partial of the wavetable?
       </h3>
+      <p> Squeezing the waveform by a duty cycle of 50% reduces the strength of each partial by 0.5, or -6 dB</p>
       <h3>
         7) A sinusoid is stored in a wavetable with period 4 so that the first four elements are 0, 1, 
         0, and -1, corresponding to indices 0, 1, 2, and 3. What value do we get for an input of 1.5: 
         (a) using 2-point interpolation? (b) using 4-point interpolation? (c) what's the value of the 
         original sinusoid there?
       </h3>
+      <p>A) 0.5</p>
+      <p>B) 0.625</p>
+      <p>C) 0.707</p>
       <h3>
         8) If a wavetable's contents all fall between -1 and 1 in value, what is the range of possible outputs 
         of wavetable lookup using 4-point interpolation?
       </h3>
+      <p> Interpolation formula yint(x) is maximized where y[x0 - 1] is -1, y[x0] is 1, y[x0 + 1] is 1, and y[x0 + 2] is -1</p>
+      <p> Interpolation formula yint(x) is minimized where y[x0 - 1] is 1, y[x0] is -1, y[x0 + 1] is -1, and y[x0 + 2] is 1</p>
+      <p> To find where fractional part f = x - x0 maximizes/minimizes cubic expression, take derivative of polynomial expression yint(x), evaluated at max/min y values. Set this equal to zero and solve for f.</p>
+      <p> Derivative yields -2f + 1 = 0. Solving for f, gives max/min at f = 0.5 </p>
+      <p> yint(0.5) = 1.25 for maximum and -1.25 for minimum, so 4-point interpolation can result in values outside the wavetable's content!</p>
 </body></html>
